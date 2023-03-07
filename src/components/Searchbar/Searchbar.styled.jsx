@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Div = styled.div`
+export const Div = styled.header`
     top: 0;
     left: 0;
     position: sticky;
@@ -47,23 +47,24 @@ export const Btn = styled.button`
     }
 `;
 
-export const Label = styled.label`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    clip-path: inset(50%);
-    border: 0;
-`;
+// export const Label = styled.label`
+//     position: absolute;
+//     width: 1px;
+//     height: 1px;
+//     padding: 0;
+//     overflow: hidden;
+//     clip: rect(0, 0, 0, 0);
+//     white-space: nowrap;
+//     clip-path: inset(50%);
+//     border: 0;
+// `;
 
 export const Input = styled.input`
     display: inline-block;
     width: 100%;
     font: inherit;
     font-size: 20px;
+    line-height: 0;
     border: none;
     outline: none;
     padding-left: 4px;
