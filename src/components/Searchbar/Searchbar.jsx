@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Div, Form, Btn, Input } from './Searchbar.styled';
+import { Div, Form, Input, Btn } from './Searchbar.styled';
 
 export default class SearchBar extends Component {
     state = {
@@ -13,8 +13,11 @@ export default class SearchBar extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
+        if(this.state.tag.trim() === '') {
+            alert('Please enter an image keyword', );
+            return;
+        }
         this.props.onSubmit(this.state.tag);
-
         this.setState({ tag: ''});
     };
 
@@ -23,9 +26,9 @@ export default class SearchBar extends Component {
         return (
             <Div className="searchbar">
             <Form onSubmit={this.handleSubmit}>
-                <Btn type="submit">
+            <Btn type="submit">
                 <span>Search</span>
-                </Btn>
+            </Btn>
                 {/* <Label> */}
                 <Input
                 type="text"
