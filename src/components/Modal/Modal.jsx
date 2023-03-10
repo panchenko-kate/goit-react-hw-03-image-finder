@@ -13,6 +13,7 @@ export default class Modal extends Component {
         window.removeEventListener('keydown', this.handleKeyDown);
     };
 
+
     handleKeyDown = e => {
         if(e.code === 'Escape') {
             this.props.onClose();
@@ -26,9 +27,10 @@ export default class Modal extends Component {
     };
 
     render() {
+        const { picture, alt } = this.props;
         return createPortal(
             <Overlay onClick={this.handleBackdropClick}>
-                <ModalDiv>{this.props.children} Modal</ModalDiv>
+                <ModalDiv src={picture} alt={alt}></ModalDiv>
             </Overlay>,
             modalRoot,
         );

@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { Gallery } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Component } from 'react';
@@ -9,35 +9,43 @@ export default class ImageGallery extends Component {
         showModal: false,
         // tag: '',
         pictures: null,
-
+        loading: false,
+        largeUrl: null,
+        alt: '',
+        selectedImage: null,
     };
 
     componentDidUpdate(prevProps, prevState) {
         const nextTag = this.props.tag;
 
         if (prevProps.tag !== nextTag) {
-            // fetch(`https://pixabay.com/api/?q=${this.props.tag}&key=33000427-89fe7bf8f999bb2d1ca661cd2&id=2295434&image_type=photo&orientation=horizontal`)
-            fetch(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=12`)
-            .then(res => res.json())
+            axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=12`)
+            .then(res => res.data.hits)
             .then(pictures => this.setState({ pictures }))
+            .finally(() => this.setState({ loading: false }));
         }
-
-        // .then(res => res.json())
-        // .then(pictures => this.setState({ pictures }))
-        // .finally(() => this.setState({ loading: false }));
     }
 
-    // componentDidMount() {
-    //     this.setState({ loading: true });
-    
-    //     fetch('https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&id=2295434&image_type=photo')
-    //     .then(res => res.json())
-    //     .then(console.log)
-    //     // .then(pictures => this.setState({ pictures }))
-    //     // .finally(() => this.setState({ loading: false }));
-    //   };
-    
+    onClickItem = e => {
+        const ItemId = e.target.id;
+        
+        this.setState({
+            selectedImage: ItemId,
+        })
+    };
 
+    selectedPicture = () => {
+        const data = this.state.pictures.find(items => items.id === this.state.selectedImage)
+        console.log(data)
+        // this.setState({
+        //     largeUrl: data.largeUrl,
+        //     // alt: '',
+        // })
+        axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&id=${this.state.selectedPicture}&image_type=photo&orientation=horizontal`)
+            .then(res => res.data.hits)
+            .then(picture => this.setState({ largeUrl: picture.largeUrl }))
+    }
+    
     toggleModal = () => {
         this.setState(({ showModal }) => ({
           showModal: !showModal,
@@ -46,15 +54,17 @@ export default class ImageGallery extends Component {
 
 
     render () {
-        const { showModal } = this.state;
+        const { showModal, loading, pictures } = this.state;
         return (
-        <Gallery className="gallery">
+        <Gallery className="gallery" onClick={this.onClickItem}>
+            {loading && <h1>Downloading</h1>}
             {showModal && 
-            <Modal onClose={this.toggleModal} />}
-            {/* <p>{this.props.tag}</p> */}
-            {this.state.pictures && 
+            <Modal onClose={this.toggleModal} 
+            picture={pictures.largeImageURL}
+            alt={pictures.tags} />}
+            {pictures && 
             <ImageGalleryItem onClick={this.toggleModal}
-            pictures={this.state.pictures} />
+            pictures={pictures} />
             }
              
         </Gallery>
