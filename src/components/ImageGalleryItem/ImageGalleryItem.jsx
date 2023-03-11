@@ -1,10 +1,11 @@
 import { Item, Img } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ onClick, pictures }) => {
+export const ImageGalleryItem = ({ openModal, pictures }) => {
     return (
-        pictures.map(item => (
-        <Item onClick={onClick} key={item.id}>
-            <Img id={item.id} src={item.webformatURL} alt={item.tags} />
+        pictures.map(({ id, webformatURL, largeImageURL, tags }) => (
+        <Item openModal={openModal} key={id}>
+            <Img id={id} src={webformatURL} alt={tags} 
+            onClick={()=> {openModal(largeImageURL, tags)}} />
         </Item>
         ))
     )

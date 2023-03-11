@@ -5,6 +5,11 @@ import { createPortal } from 'react-dom';
 const modalRoot = document.querySelector('#modal-root')
 
 export default class Modal extends Component {
+    state = {
+        largeUrl: null,
+        alt: '',
+    };
+
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown);
     };
@@ -27,10 +32,9 @@ export default class Modal extends Component {
     };
 
     render() {
-        const { picture, alt } = this.props;
         return createPortal(
             <Overlay onClick={this.handleBackdropClick}>
-                <ModalDiv src={picture} alt={alt}></ModalDiv>
+                <ModalDiv src={this.props.img} alt={this.props.alt}></ModalDiv>
             </Overlay>,
             modalRoot,
         );

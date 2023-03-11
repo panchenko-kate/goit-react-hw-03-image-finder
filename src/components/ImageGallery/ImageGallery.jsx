@@ -7,12 +7,10 @@ import Modal from '../Modal/Modal';
 export default class ImageGallery extends Component {
     state = {
         showModal: false,
-        // tag: '',
         pictures: null,
         loading: false,
-        largeUrl: null,
+        modalImg: null,
         alt: '',
-        selectedImage: null,
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -26,44 +24,33 @@ export default class ImageGallery extends Component {
         }
     }
 
-    onClickItem = e => {
-        const ItemId = e.target.id;
-        
+    openModal = (largeImageURL, tags) => {
         this.setState({
-            selectedImage: ItemId,
-        })
+            showModal: true,
+            modalImg: largeImageURL,
+            alt: tags,
+        });
     };
-
-    selectedPicture = () => {
-        const data = this.state.pictures.find(items => items.id === this.state.selectedImage)
-        console.log(data)
-        // this.setState({
-        //     largeUrl: data.largeUrl,
-        //     // alt: '',
-        // })
-        axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&id=${this.state.selectedPicture}&image_type=photo&orientation=horizontal`)
-            .then(res => res.data.hits)
-            .then(picture => this.setState({ largeUrl: picture.largeUrl }))
-    }
     
-    toggleModal = () => {
-        this.setState(({ showModal }) => ({
-          showModal: !showModal,
-        }))
+    closeModal = () => {
+        this.setState({
+            showModal: false,
+            modalImg: null,
+        });
     };
 
 
     render () {
         const { showModal, loading, pictures } = this.state;
         return (
-        <Gallery className="gallery" onClick={this.onClickItem}>
+        <Gallery className="gallery">
             {loading && <h1>Downloading</h1>}
             {showModal && 
-            <Modal onClose={this.toggleModal} 
-            picture={pictures.largeImageURL}
-            alt={pictures.tags} />}
+            <Modal onClose={this.closeModal} 
+            alt={this.state.tag}
+            img={this.state.modalImg}/>}
             {pictures && 
-            <ImageGalleryItem onClick={this.toggleModal}
+            <ImageGalleryItem openModal={this.openModal}
             pictures={pictures} />
             }
              
