@@ -1,4 +1,5 @@
 import { Item, Img } from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 
 export const ImageGalleryItem = ({ openModal, pictures }) => {
     return (
@@ -10,3 +11,15 @@ export const ImageGalleryItem = ({ openModal, pictures }) => {
         ))
     )
 };
+
+  ImageGalleryItem.propTypes = {
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        webformatURL: PropTypes.string.isRequired,
+        largeImageURL: PropTypes.string.isRequired,
+        tag: PropTypes.string.isRequired,
+      })
+    ),
+    openModal: PropTypes.func.isRequired,
+  };
