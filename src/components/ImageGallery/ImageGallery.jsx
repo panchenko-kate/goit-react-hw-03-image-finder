@@ -62,14 +62,7 @@ export default class ImageGallery extends Component {
 
 
     render () {
-<<<<<<< Updated upstream
-        const { showModal, loading, pictures, tag, modalImg, totalItems } = this.state;
-        // const hasMorePictures = totalItems > pictures.length;
-
-
-=======
         const { showModal, loading, pictures, tag, modalImg } = this.state;
->>>>>>> Stashed changes
         return (
         <Gallery className="gallery">
             {loading && <h1>Loading..</h1>}
