@@ -56,9 +56,10 @@ export default class ImageGallery extends Component {
     render () {
         const { showModal, loading, pictures, tag, modalImg } = this.state;
 
+
         return (
         <Gallery className="gallery">
-            {loading && <h1>Loading..</h1>}
+            {loading && <h1>Downloading</h1>}
             {showModal && 
             <Modal onClose={this.closeModal} 
             alt={tag}
