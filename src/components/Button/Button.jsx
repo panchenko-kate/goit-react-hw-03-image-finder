@@ -17,9 +17,6 @@ export default class Button extends Component {
             <Btn type='button' onClick={this.onClick}>Load more</Btn>
         )
     }
-
-}
-
 }
 
 Button.propTypes = {

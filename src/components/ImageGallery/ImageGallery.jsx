@@ -26,6 +26,12 @@ export default class ImageGallery extends Component {
                 loading: true
              })
             .then(res => res.data.hits)
+            // .then(res => {
+            //     const newPictures = res.data.hits;
+            //     this.setState({ 
+            //         pictures: newPictures, 
+            //     });
+            // })
             .then(pictures => this.setState({ pictures }))
             .catch(error => {
                 console.log(error)})
@@ -57,7 +63,7 @@ export default class ImageGallery extends Component {
 
     render () {
         const { showModal, loading, pictures, tag, modalImg } = this.state;
-        
+
         return (
         <Gallery className="gallery">
             {loading && <h1>Downloading</h1>}
