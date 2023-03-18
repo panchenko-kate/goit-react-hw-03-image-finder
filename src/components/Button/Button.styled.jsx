@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 
 export const Btn = styled.button`
-    display: inline-block;
-    width: 48px;
+    display: block;
+    margin: 16px auto;
+    width: 200px;
     height: 48px;
+    font: inherit;
+    font-size: 20px;
     border: 0;
-    /* background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg'); */
-    background-size: 40%;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.6;
+    opacity: 1;
+    color: #f0eeee;
+    background-color: rgb(63, 81, 181);
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     outline: none;
     :hover {
-    opacity: 1;
+    opacity: 0.8;
     }
 `;
