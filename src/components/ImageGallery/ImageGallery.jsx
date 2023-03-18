@@ -57,8 +57,7 @@ export default class ImageGallery extends Component {
 
 
     render () {
-        const { showModal, loading, pictures, tag, modalImg, totalItems } = this.state;
-        // const hasMorePictures = totalItems > pictures.length;
+        const { showModal, loading, pictures, tag, modalImg } = this.state;
         return (
         <div>
         {loading && <Loader />}
