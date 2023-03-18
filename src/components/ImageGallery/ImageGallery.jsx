@@ -22,16 +22,6 @@ export default class ImageGallery extends Component {
         if (prevProps.tag !== nextTag || prevState.page !== this.state.page) {
             axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=12`)
             .then(res => res.data.hits)
-            // .then(res => {
-            //     const newPictures = res.data.hits;
-            //     const totalHits = res.data.totalhits;  
-                
-            //     this.setState((prevState) => ({ 
-            //         pictures: [...prevState.pictures, ...newPictures], 
-            //         totalItems: totalHits,
-            //         loading: false,
-            //     }));
-            // })
             .then(pictures => this.setState({ pictures }))
             .catch(error => {
                 console.log(error)})
