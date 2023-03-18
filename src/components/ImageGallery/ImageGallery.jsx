@@ -64,8 +64,8 @@ export default class ImageGallery extends Component {
         <Gallery className="gallery">
             {showModal && 
             <Modal onClose={this.closeModal} 
-            alt={tag}
-            img={modalImg}/>}
+            alt={this.state.tag}
+            img={this.state.modalImg}/>}
             {pictures && 
             <ImageGalleryItem openModal={this.openModal}
             pictures={pictures} />
