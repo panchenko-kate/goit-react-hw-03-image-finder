@@ -4,6 +4,7 @@ import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Component } from 'react';
 import Modal from '../Modal/Modal';
 import Button from "components/Button/Button";
+import { Loader } from "components/Loader/Loader";
 
 export default class ImageGallery extends Component {
     state = {
@@ -21,17 +22,11 @@ export default class ImageGallery extends Component {
         const nextTag = this.props.tag;
 
         if (prevProps.tag !== nextTag || prevState.perPage !== this.state.perPage) {
-            axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=${this.state.perPage}&page=${this.state.page}`)
             this.setState({
                 loading: true
              })
+            axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=${this.state.perPage}&page=${this.state.page}`)
             .then(res => res.data.hits)
-            // .then(res => {
-            //     const newPictures = res.data.hits;
-            //     this.setState({ 
-            //         pictures: newPictures, 
-            //     });
-            // })
             .then(pictures => this.setState({ pictures }))
             .catch(error => {
                 console.log(error)})
@@ -65,17 +60,19 @@ export default class ImageGallery extends Component {
         const { showModal, loading, pictures, tag, modalImg } = this.state;
 
         return (
-        <Gallery className="gallery">
-            {loading && <h1>Downloading</h1>}
-            {showModal && 
-            <Modal onClose={this.closeModal} 
-            alt={tag}
-            img={modalImg}/>}
-            {pictures && 
-            <ImageGalleryItem openModal={this.openModal}
-            pictures={pictures} />
-            }
+            <div>
+            {loading && <Loader />}
+            <Gallery>
+                {showModal && 
+                <Modal onClose={this.closeModal} 
+                alt={tag}
+                img={modalImg}/>}
+                {pictures && 
+                <ImageGalleryItem openModal={this.openModal}
+                pictures={pictures} />
+                }
+            </Gallery>
             {pictures !== null && <Button onClick={this.loadMoreImages} />}
-        </Gallery>
+            </div>
     )}
 };
