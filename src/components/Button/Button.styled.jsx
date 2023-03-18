@@ -6,6 +6,7 @@ export const Btn = styled.button`
     display: inline-block;
     width: 48px;
     height: 48px;
+    font: inherit;
     font-size: 20px;
     border: 0;
     /* background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg'); */

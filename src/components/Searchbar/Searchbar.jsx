@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { CgSearch } from "react-icons/cg"
 import { Div, Form, Input, Btn } from './Searchbar.styled';
 
 export default class SearchBar extends Component {
@@ -28,11 +27,13 @@ export default class SearchBar extends Component {
             <Div className="searchbar">
             <Form onSubmit={this.handleSubmit}>
             <Btn type="submit">
-                <CgSearch  />
+                <span>Search</span>
             </Btn>
                 {/* <Label> */}
                 <Input
                 type="text"
+                // autocomplete="off"
+                // autofocus
                 placeholder="Search images and photos"
                 value={this.state.tag}
                 onChange={this.hangleTagChange}
