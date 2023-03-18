@@ -3,26 +3,25 @@ import { Gallery } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Component } from 'react';
 import Modal from '../Modal/Modal';
-import Button from "components/Button/Button";
+import { Button } from "components/Button/Button";
 
 export default class ImageGallery extends Component {
     state = {
         tag: [],
         showModal: false,
-        pictures: null,
+        pictures: [],
         loading: false,
         modalImg: null,
         alt: '',
         page: 1,
-        perPage: 12,
         totalItems: null,
     };
 
     componentDidUpdate(prevProps, prevState) {
         const nextTag = this.props.tag;
 
-        if (prevProps.tag !== nextTag || prevState.perPage !== this.state.perPage) {
-            axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=${this.state.perPage}&page=${this.state.page}`)
+        if (prevProps.tag !== nextTag || prevState.page !== this.state.page) {
+            axios.get(`https://pixabay.com/api/?key=33000427-89fe7bf8f999bb2d1ca661cd2&q=${nextTag}&image_type=photo&orientation=horizontal&per_page=12`)
             .then(res => res.data.hits)
             .then(pictures => this.setState({ pictures }))
             .catch(error => {
@@ -46,11 +45,11 @@ export default class ImageGallery extends Component {
         });
     };
 
-    loadMoreImages = (pictures) => {
+    loadMoreImages = () => {
         this.setState(prevState => ({ 
-            perPage: prevState.perPage + Number(pictures.perPage)
+            page: prevState.page + 1, loading: true 
         }));
-    };
+    }
 
 
     render () {
