@@ -5,7 +5,6 @@ export const Btn = styled.button`
     margin: 16px auto;
     width: 200px;
     height: 48px;
-    font: inherit;
     font-size: 20px;
     border: 0;
     opacity: 1;
