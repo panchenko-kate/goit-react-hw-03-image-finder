@@ -72,7 +72,7 @@ export default class ImageGallery extends Component {
                 pictures={pictures} />
                 }
             </Gallery>
-            {pictures !== null && <Button onClick={this.loadMoreImages} />}
+            {pictures !== null && pictures.length > 11 && <Button onClick={this.loadMoreImages} />}
             </div>
     )}
 };
